@@ -7,4 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".SelectGameActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenue "
+            android:textSize="40sp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rastelli maxime"
+            android:layout_gravity="center"
+            android:textSize="40sp"/>
+
+        <Button
+            android:id="@+id/btn_additions"
+            android:layout_width="wrap_content"
+            android:text="additions"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="150sp"/>
+    </LinearLayout>
+
+
+
+
 </RelativeLayout>

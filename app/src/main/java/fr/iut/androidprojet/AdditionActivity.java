@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.SymbolTable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -41,7 +43,7 @@ public class AdditionActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        long startTime = System.currentTimeMillis();
         compteurView = findViewById(R.id.compteur);
         additionView = findViewById(R.id.addition);
         reponseView = findViewById(R.id.reponse);
@@ -70,12 +72,18 @@ public class AdditionActivity extends AppCompatActivity {
         suivantView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!reponseView.getText().toString().equals("")) {
+                    additions.get(nbFois - 1).setReponseUtilisateur(Integer.parseInt(reponseView.getText().toString()));
+                }
                 if(nbFois == 10){
-                    Intent intent = new Intent();
+                    long endTime = System.currentTimeMillis();
+                    double durationInSeconds = (endTime - startTime)/1000.0;
+                    Intent intent = new Intent(AdditionActivity.this, ResultatActivity.class);
+                    Log.d("DEBUG", "Temps :" + durationInSeconds);
+                    intent.putExtra(ResultatActivity.TEMPS, String.valueOf(durationInSeconds));
+                    intent.putParcelableArrayListExtra("additions",additions);
+                    startActivity(intent);
                 }else {
-                    if (!reponseView.getText().toString().equals("")) {
-                        additions.get(nbFois - 1).setReponseUtilisateur(Integer.parseInt(reponseView.getText().toString()));
-                    }
                     nbFois++;
                     updateView();
                 }
@@ -88,11 +96,10 @@ public class AdditionActivity extends AppCompatActivity {
 
         Addition addition = additions.get(nbFois - 1);
         additionView.setText(addition.toString());
-        reponseView.setText(addition.getReponseUtilisateur() == 0 ? "" : String.valueOf(addition.getReponseUtilisateur()));
-
+        reponseView.setText(addition.getReponseUtilisateur() == -1 ? "" : String.valueOf(addition.getReponseUtilisateur()));
         // Gérer les boutons
         precedentView.setEnabled(nbFois > 1);
-        if (nbFois == 9) {
+        if (nbFois == 10) {
             suivantView.setText("Valider");
             suivantView.setTextColor(Color.RED);
         } else {

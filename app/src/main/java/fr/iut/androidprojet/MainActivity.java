@@ -2,6 +2,7 @@ package fr.iut.androidprojet;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ import fr.iut.androidprojet.db.DatabaseClient;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences prefs;
+
     private static final int REQUEST_CODE_ADD = 0;
 
     // DATA
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
         // Récupération du DatabaseClient
         mDb = DatabaseClient.getInstance(getApplicationContext());
@@ -62,7 +67,12 @@ public class MainActivity extends AppCompatActivity {
 
                 // Récupération de la tâche cliquée à l'aide de l'adapter
                 User user = adapter.getItem(position);
-                Intent intent = new Intent(MainActivity.this, AdditionActivity.class);
+
+                SharedPreferences.Editor editor= prefs.edit();
+                editor.putString("user",user.getPrenom() + " " +user.getNom());
+                editor.apply();
+                Intent intent = new Intent(MainActivity.this, SelectGameActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 // Message
                 Toast.makeText(MainActivity.this, "Compte sélectionné : " + user.getPrenom(), Toast.LENGTH_SHORT).show();

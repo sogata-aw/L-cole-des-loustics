@@ -11,6 +11,7 @@ public class Addition implements Parcelable {
     public Addition(int op1, int op2) {
         this.op1 = op1;
         this.op2 = op2;
+        this.reponseUtilisateur = -1;
     }
 
     public int getOp1() {
