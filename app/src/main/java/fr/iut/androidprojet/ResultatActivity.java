@@ -20,7 +20,6 @@ import fr.iut.androidprojet.model.Addition;
 public class ResultatActivity extends AppCompatActivity {
 
     private Button btnMenu;
-    private Button btnCorriger;
     private Button btnNouvellePartie;
     private TextView nbErreursView;
     private TextView tempsView;
@@ -41,7 +40,6 @@ public class ResultatActivity extends AppCompatActivity {
         });
 
         btnMenu = findViewById(R.id.goToMenu);
-        btnCorriger = findViewById(R.id.btnCorriger);
         btnNouvellePartie = findViewById(R.id.btnNouvellePartie);
         nbErreursView = findViewById(R.id.nbErreurs);
         tempsView = findViewById(R.id.temps);

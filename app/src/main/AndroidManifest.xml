@@ -13,6 +13,12 @@
         android:theme="@style/Theme.AndroidProjet"
         tools:targetApi="31">
         <activity
+            android:name=".ResultatQActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuestionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResultatActivity"
             android:exported="false" />
         <activity

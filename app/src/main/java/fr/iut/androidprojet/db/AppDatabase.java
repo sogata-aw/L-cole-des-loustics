@@ -7,5 +7,5 @@ import fr.iut.androidprojet.User;
 
 @Database(entities = {User.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract UserDao UserDao();
+    public abstract UserDao userDao();
 }

@@ -76,7 +76,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 // adding to database
                 long id = mDb.getAppDatabase()
-                        .UserDao()
+                        .userDao()
                         .insert(user);
 
                 // mettre à jour l'id de la tache

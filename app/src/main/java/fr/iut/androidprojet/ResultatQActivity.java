@@ -1,7 +1,6 @@
 package fr.iut.androidprojet;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,50 +12,51 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
+import fr.iut.androidprojet.model.Addition;
 
-public class SelectGameActivity extends AppCompatActivity {
+public class ResultatQActivity extends AppCompatActivity {
 
-    private SharedPreferences prefs;
+    private Button btnMenu;
 
-    private Button btnAdditions;
-    private Button btnQuizz;
-    private TextView userView;
-    public static final String USER = "rastemax";
+    private Button btnNouvellePartie;
+    private TextView nbErreursView;
+
+    private int nbResultat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_select_game);
+        setContentView(R.layout.activity_resultat_qactivity);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        btnMenu = findViewById(R.id.goToMenu);
+        btnNouvellePartie = findViewById(R.id.btnNouvellePartie);
+        nbErreursView = findViewById(R.id.nbErreurs);
 
-        userView = findViewById(R.id.user);
-        btnAdditions = findViewById(R.id.btn_additions);
-        btnQuizz = findViewById(R.id.btn_quizz);
-
-        userView.setText(prefs.getString("user", ""));
-
-        btnAdditions.setOnClickListener(new View.OnClickListener() {
+        nbResultat = getIntent().getIntExtra("nbReponsesJustes", 0);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectGameActivity.this, AdditionActivity.class);
+                Intent intent = new Intent(ResultatQActivity.this, SelectGameActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
 
-        btnQuizz.setOnClickListener(new View.OnClickListener() {
+        btnNouvellePartie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectGameActivity.this, QuestionsActivity.class);
+                Intent intent = new Intent(ResultatQActivity.this, QuestionsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
+
+        nbErreursView.setText(String.valueOf(nbResultat));
     }
 }

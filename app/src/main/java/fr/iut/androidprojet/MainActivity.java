@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected List<User> doInBackground(Void... voids) {
                 List<User> userList = mDb.getAppDatabase()
-                        .UserDao()
+                        .userDao()
                         .getAll();
                 return userList;
             }

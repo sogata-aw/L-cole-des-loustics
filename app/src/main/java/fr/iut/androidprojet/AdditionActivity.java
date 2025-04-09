@@ -31,7 +31,6 @@ public class AdditionActivity extends AppCompatActivity {
     private Button suivantView;
     private ArrayList<Addition> additions = new ArrayList<Addition>();
     private Random random = new Random();
-    private Boolean retour = false;
     private int nbFois = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
